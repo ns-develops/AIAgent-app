@@ -1,0 +1,31 @@
+{
+  "name": "ns-recruiter-assistant",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AI-assistent som svarar rekryterare på frågor om Natalie Samaans projekt och kunskaper",
+  "engines": {
+    "node": ">=20.12"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "invite": "node scripts/create-invite.mjs",
+    "secret": "node -e \"console.log(require('crypto').randomBytes(48).toString('base64url'))\""
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "latest",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "server-only": "latest",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "typescript": "latest"
+  }
+}

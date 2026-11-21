@@ -1,0 +1,58 @@
+:root {
+  --bg: #14121f;
+  --panel: #1d1a2c;
+  --panel-2: #262238;
+  --text: #ecebf3;
+  --muted: #9d99b3;
+  --accent: #8b7cf6;
+  --accent-2: #b3a8ff;
+  --error-bg: #3a1d2a;
+  --error: #ffb3c7;
+  --radius: 14px;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  background: radial-gradient(circle at 20% 0%, #231d3d 0%, var(--bg) 55%);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  line-height: 1.5;
+}
+h1 { margin: 0; font-size: 1.35rem; letter-spacing: -0.01em; }
+a { color: var(--accent-2); }
+.muted { color: var(--muted); font-size: 0.9rem; margin: 0.2rem 0 0; }
+button {
+  font: inherit; border: 0; border-radius: 10px; padding: 0.65rem 1.1rem;
+  background: var(--accent); color: #fff; cursor: pointer;
+}
+button:disabled { opacity: 0.5; cursor: default; }
+button.ghost { background: transparent; color: var(--muted); border: 1px solid var(--panel-2); }
+input, textarea {
+  font: inherit; color: var(--text); background: var(--panel-2);
+  border: 1px solid transparent; border-radius: 10px; padding: 0.7rem 0.9rem; width: 100%; resize: none;
+}
+input:focus, textarea:focus { outline: none; border-color: var(--accent); }
+
+.shell { min-height: 100dvh; display: flex; justify-content: center; padding: 1rem; }
+
+.gate { margin: auto; width: 100%; max-width: 380px; background: var(--panel); padding: 2rem; border-radius: var(--radius); }
+.gate .lead { margin: 0.3rem 0 1rem; color: var(--accent-2); }
+.gate form { display: grid; gap: 0.6rem; margin-top: 1.2rem; }
+.gate label { font-size: 0.85rem; color: var(--muted); }
+
+.chat { width: 100%; max-width: 760px; height: calc(100dvh - 2rem); display: flex; flex-direction: column; gap: 0.8rem; }
+.chat header { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 0.7rem; padding: 0.3rem; }
+.welcome { background: var(--panel); border-radius: var(--radius); padding: 1.2rem; }
+.welcome p { margin-top: 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.chips button { background: var(--panel-2); color: var(--text); font-size: 0.9rem; padding: 0.5rem 0.8rem; }
+.msg { max-width: 85%; padding: 0.75rem 1rem; border-radius: var(--radius); white-space: pre-wrap; overflow-wrap: anywhere; }
+.msg small { display: block; margin-top: 0.4rem; color: var(--muted); font-size: 0.75rem; }
+.msg.user { align-self: flex-end; background: var(--accent); color: #fff; }
+.msg.assistant { align-self: flex-start; background: var(--panel); }
+.msg.error { align-self: center; background: var(--error-bg); color: var(--error); font-size: 0.9rem; }
+.msg.pending { color: var(--muted); font-style: italic; }
+.composer { display: flex; gap: 0.6rem; align-items: flex-end; }
+.disclaimer { font-size: 0.75rem; text-align: center; }
+.error { color: var(--error); font-size: 0.9rem; }
