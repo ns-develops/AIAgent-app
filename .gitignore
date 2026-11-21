@@ -7,3 +7,6 @@ out/
 *.tsbuildinfo
 .vercel
 .DS_Store
+
+# Privat driftguide
+SETUP.local.md
