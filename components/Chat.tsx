@@ -23,20 +23,35 @@ const TOOL_LABELS: Record<string, string> = {
   get_repo_readme: "README",
 };
 
-/** Gör https-länkar klickbara. React escapar all text, så ingen HTML kan smygas in. */
+/**
+ * Visar svaret med enkel formatering: **fetstil**, [länktext](https://...) och vanliga https-länkar.
+ * React escapar all text, så ingen HTML kan smygas in. Bara https-länkar blir klickbara.
+ */
 function Linkified({ text }: { text: string }) {
-  const parts = text.split(/(https:\/\/[^\s)<>\]]+)/g);
+  const pattern = /(\*\*[^*]+\*\*|\[[^\]]+\]\(https:\/\/[^\s)]+\)|https:\/\/[^\s)<>\]]+)/g;
+  const parts = text.split(pattern);
   return (
     <>
-      {parts.map((part, i) =>
-        /^https:\/\//.test(part) ? (
-          <a key={i} href={part} target="_blank" rel="noopener noreferrer">
-            {part.replace(/^https:\/\//, "")}
-          </a>
-        ) : (
-          <Fragment key={i}>{part}</Fragment>
-        ),
-      )}
+      {parts.map((part, i) => {
+        const bold = /^\*\*([^*]+)\*\*$/.exec(part);
+        if (bold) return <strong key={i}>{bold[1]}</strong>;
+        const md = /^\[([^\]]+)\]\((https:\/\/[^\s)]+)\)$/.exec(part);
+        if (md) {
+          return (
+            <a key={i} href={md[2]} target="_blank" rel="noopener noreferrer">
+              {md[1]}
+            </a>
+          );
+        }
+        if (/^https:\/\//.test(part)) {
+          return (
+            <a key={i} href={part} target="_blank" rel="noopener noreferrer">
+              {part.replace(/^https:\/\//, "")}
+            </a>
+          );
+        }
+        return <Fragment key={i}>{part}</Fragment>;
+      })}
     </>
   );
 }
@@ -47,7 +62,11 @@ export default function Chat() {
   const [busy, setBusy] = useState(false);
   const endRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => endRef.current?.scrollIntoView({ behavior: "smooth" }), [messages, busy]);
+  // OBS: måste vara i måsvingar. Nyare webbläsare returnerar ett Promise från scrollIntoView,
+  // och om effekten returnerar något annat än en funktion kraschar React.
+  useEffect(() => {
+    endRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, busy]);
 
   async function ask(question: string) {
     const q = question.trim();
