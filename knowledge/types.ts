@@ -9,6 +9,8 @@ export interface Project {
   /** Visas först och lyfts fram av assistenten */
   featured?: boolean;
   summary: string;
+  /** Natalies egen presentation, med hennes egna ord */
+  about?: string;
   tech: string[];
   /** Fakta som är bekräftade från repot (README, kod, taggar) */
   highlights?: string[];

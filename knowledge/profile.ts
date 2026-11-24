@@ -7,12 +7,15 @@ export const profile: Profile = {
   title: "Mobilapp- och webbutvecklare",
   location: "Sverige",
   summary:
-    "Utvecklare med fokus på mobilappar (iOS/Swift) och fullstack-webb (React, Next.js, Node.js), med 17 års erfarenhet från hotellbranschen innan bytet till utveckling.",
+    "App- och webbutvecklare med fokus på mobilappar (iOS/Swift) och fullstack-webb (TypeScript, React, Next.js, Node.js). Brinner för design, problemlösning och att skapa användarvänliga applikationer som löser verkliga behov. Har 17 års erfarenhet från hotellbranschen innan bytet till utveckling.",
+  about:
+    "Det började med min passion för programmering år 2020, vilket så småningom ledde till att jag tog en universitetsexamen som app- och webbutvecklare. Jag har arbetat med fullständiga applikationer med moderna tekniker som TypeScript och Node.js. Jag brinner för design, problemlösning och att skapa användarvänliga applikationer som löser verkliga behov. En stor del av min tid lägger jag på att lära mig nya tekniker, är nyfiken på att bidra till open source-projekt och utforskar kreativa lösningar på komplexa problem.",
   background: [
     "Arbetade 17 år i hotellbranschen (2008–2025), senast som Operations Manager.",
-    "Började programmera 2020 och bytte därefter karriär till mjukvaruutveckling.",
+    "Passionen för programmering började 2020 och ledde så småningom till en examen som app- och webbutvecklare.",
+    "Har byggt fullständiga applikationer (fullstack) med moderna tekniker som TypeScript och Node.js.",
   ],
-  education: ["Mobilapputvecklare, Folkuniversitet via Göteborgs universitet (2023–2026)"],
+  education: ["Examen som app- och webbutvecklare, Folkuniversitet via Göteborgs universitet (2023–2026)"],
   skills: {
     "Mobil": ["Swift", "SwiftUI", "UIKit", "Core Data", "MapKit", "React Native", "Expo", "Kotlin", "Java (Android)"],
     "Frontend": ["JavaScript", "TypeScript", "React", "Next.js", "Angular", "Tailwind CSS", "shadcn/ui"],
@@ -31,5 +34,10 @@ export const profile: Profile = {
     workMode: "", // t.ex. "Göteborg, hybrid eller distans"
     availableFrom: "", // t.ex. "Omgående"
   },
-  softSkills: [], // t.ex. "Ledarskap från rollen som Operations Manager"
+  softSkills: [
+    "Brinner för design och användarvänlighet",
+    "Problemlösning: gillar att utforska kreativa lösningar på komplexa problem",
+    "Nyfiken och lär sig gärna nya tekniker; lägger mycket tid på att utvecklas",
+    "Nyfiken på att bidra till open source-projekt",
+  ],
 };

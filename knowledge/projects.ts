@@ -3,6 +3,27 @@ import type { Project } from "./types";
 // Projekten är hämtade från dina publika GitHub-repos (beskrivningar, taggar och,
 // för några, README och kod). Fyll i "story" för dina viktigaste projekt.
 export const projects: Project[] = [
+  // ── AI ──────────────────────────────────────────────────
+  {
+    name: "AIAgent-app",
+    owner: "ns-develops",
+    category: "fullstack-web",
+    featured: true,
+    summary:
+      "Den här AI-assistenten: en AI-agent som svarar rekryterare på frågor om Natalies projekt, kunskaper och hur hon byggt dem.",
+    tech: ["TypeScript", "Next.js (App Router)", "React", "Claude API (Anthropic)", "AI-agenter", "Tool use / function calling", "Zod", "Upstash Redis", "Vercel", "Netlify"],
+    highlights: [
+      "Agentloop med tool use: modellen väljer själv verktyg och hämtar fakta innan den svarar, i stället för att gissa",
+      "Sex skrivskyddade verktyg mot en typad kunskapsbas och GitHubs API (publika repos och README-filer)",
+      "Systemprompt med regler för faktagrund, avgränsning och skydd mot prompt injection",
+      "Åtkomst via personliga inbjudningslänkar med SHA-256-hashade koder och HMAC-signerade HttpOnly-cookies",
+      "Kostnadsskydd i flera lager: rate limiting per IP och inbjudan, dygns- och månadsbudget i tokens (Upstash Redis)",
+      "Säkerhetsheaders (CSP m.m.), validering med Zod, ingen indexering i sökmotorer",
+      "Deployad på Vercel och kopplad till portfolion på Netlify via proxy (ns-dev.tech/aiassistant)",
+    ],
+    story: {},
+  },
+
   // ── iOS / Swift ─────────────────────────────────────────
   {
     name: "RealMatch-app",
@@ -30,8 +51,8 @@ export const projects: Project[] = [
     name: "First-AI-Powered-app",
     owner: "ns-develops",
     category: "ios",
-    summary: "iOS-app som genererar intelligenta svar i realtid med OpenAI:s GPT-4o-mini.",
-    tech: ["Swift", "OpenAI API (GPT-4o-mini)"],
+    summary: "iOS-app som genererar intelligenta svar i realtid med OpenAI:s GPT-4o-mini. Natalies första AI-app.",
+    tech: ["Swift", "OpenAI API (GPT-4o-mini)", "AI-integration"],
   },
   {
     name: "Journal-app",
