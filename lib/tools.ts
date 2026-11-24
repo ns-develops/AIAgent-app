@@ -36,6 +36,40 @@ function isEmpty(v: unknown): boolean {
   );
 }
 
+/** Synonymer så att t.ex. "AI" också hittar Claude, OpenAI, GPT, agenter osv. */
+const SYNONYMS: Record<string, string[]> = {
+  ai: ["ai", "artificiell intelligens", "artificial intelligence", "llm", "claude", "anthropic", "openai", "gpt", "agent", "tool use", "machine learning", "maskininlärning"],
+  "artificiell intelligens": ["ai"],
+  "artificial intelligence": ["ai"],
+  llm: ["ai"],
+  ml: ["machine learning", "maskininlärning", "ai"],
+  backend: ["backend", "node.js", "express", "api", "lambda"],
+  frontend: ["frontend", "react", "next.js", "angular"],
+  mobil: ["swift", "swiftui", "react native", "kotlin", "android", "ios"],
+  mobile: ["swift", "swiftui", "react native", "kotlin", "android", "ios"],
+  moln: ["aws", "vercel", "firebase", "supabase", "cloud"],
+  cloud: ["aws", "vercel", "firebase", "supabase", "cloud"],
+  databas: ["mongodb", "firebase", "supabase", "sqlite", "core data", "redis", "database"],
+  database: ["mongodb", "firebase", "supabase", "sqlite", "core data", "redis", "database"],
+};
+
+function expandTerms(technology: string): string[] {
+  const t = technology.trim().toLowerCase();
+  const extra = SYNONYMS[t] ?? [];
+  const nested = extra.flatMap((x) => (x !== t && SYNONYMS[x] && x === "ai" ? SYNONYMS.ai ?? [] : []));
+  return [...new Set([t, ...extra, ...nested])];
+}
+
+/** Korta ord (t.ex. "ai") matchas som hela ord, så att "AI" inte träffar "Tailwind" eller "Maintenance". */
+function matches(haystack: string, term: string): boolean {
+  const h = haystack.toLowerCase();
+  if (term.length <= 3) {
+    const escaped = term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    return new RegExp(`(^|[^a-zåäö0-9])${escaped}([^a-zåäö0-9]|$)`, "i").test(h);
+  }
+  return h.includes(term);
+}
+
 const repoUrl = (p: Project) => `https://github.com/${p.owner}/${p.name}`;
 const brief = (p: Project) => ({
   name: p.name,
@@ -101,7 +135,8 @@ const tools = [
   tool({
     definition: {
       name: "find_projects_by_technology",
-      description: 'Hittar projekt där en viss teknik använts, t.ex. "TypeScript", "AWS", "Firebase", "SwiftUI".',
+      description:
+        'Hittar projekt där en teknik eller ett område använts, t.ex. "TypeScript", "AWS", "Firebase", "SwiftUI", "AI", "backend". Söker i namn, beskrivning, tekniker och höjdpunkter, och förstår synonymer (t.ex. AI = Claude, OpenAI, GPT, agenter).',
       input_schema: {
         type: "object",
         properties: { technology: { type: "string", description: "Teknikens namn" } },
@@ -111,13 +146,12 @@ const tools = [
     },
     schema: z.object({ technology: z.string().min(1).max(50) }),
     handler: ({ technology }) => {
-      const t = technology.trim().toLowerCase();
-      const list = projects.filter(
-        (p) =>
-          p.tech.some((x) => x.toLowerCase().includes(t)) ||
-          (p.highlights ?? []).some((h) => h.toLowerCase().includes(t)),
-      );
-      return { technology, count: list.length, projects: list.map((p) => compact({ ...brief(p), highlights: p.highlights })) };
+      const terms = expandTerms(technology);
+      const list = projects.filter((p) => {
+        const haystack = [p.name, p.summary, ...p.tech, ...(p.highlights ?? [])].join(" \n ");
+        return terms.some((t) => matches(haystack, t));
+      });
+      return { technology, searchedFor: terms, count: list.length, projects: list.map((p) => compact({ ...brief(p), highlights: p.highlights })) };
     },
   }),
   tool({
