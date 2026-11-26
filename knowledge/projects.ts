@@ -5,6 +5,27 @@ import type { Project } from "./types";
 export const projects: Project[] = [
   // ── AI ──────────────────────────────────────────────────
   {
+    name: "AI-world",
+    owner: "ns-develops",
+    category: "fullstack-web",
+    featured: true,
+    summary:
+      "Virtuell studio i three.js där sex AI-agenter (Research, Script, Video, Quality Control, CEO och Publisher) samarbetar för att producera faceless YouTube-serier för barn och vuxna. Natalie granskar och godkänner varje avsnitt som CEO.",
+    tech: ["TypeScript", "three.js", "Vite", "Node.js", "Server-Sent Events", "Claude API (Anthropic)", "AI-agenter", "Multi-agent-system", "LLM-orkestrering", "3D"],
+    highlights: [
+      "Multi-agent-flöde: Research → Script → Video → Quality Control → CEO → Publisher, med återkoppling från QC och CEO tillbaka till Script",
+      "Agenterna visas som figurer i en 3D-värld i three.js som går mellan stationer, pratar och lämnar över jobb",
+      "Node-backend utan beroenden med en orkestrerare för flödet och Server-Sent Events för realtidsuppdateringar",
+      "Claude API skriver research (med valfri webbsökning), manus och faktagranskning",
+      "Human-in-the-loop: CEO-vy där Natalie förhandsgranskar, läser QC-rapporten och godkänner eller begär ändringar",
+      "Inbyggda YouTube-regler: barnvideor märks Made for Kids, AI-innehåll märks som syntetiskt, uppladdning alltid privat, QC stoppar varumärken och olämpliga ord",
+      "Mock- och demoläge: den publika Vercel-länken kör hela flödet i webbläsaren med simulerad data, så inga API-nycklar exponeras och ingen kan förbruka krediter",
+      "Planerat (fas 2): röst med ElevenLabs, klipp från Pexels, rendering med FFmpeg och uppladdning via YouTube Data API",
+    ],
+    liveUrl: "https://ai-world-eight-swart.vercel.app",
+    story: {},
+  },
+  {
     name: "AIAgent-app",
     owner: "ns-develops",
     category: "fullstack-web",

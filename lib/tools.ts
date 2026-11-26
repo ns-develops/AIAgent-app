@@ -39,6 +39,10 @@ function isEmpty(v: unknown): boolean {
 /** Synonymer så att t.ex. "AI" också hittar Claude, OpenAI, GPT, agenter osv. */
 const SYNONYMS: Record<string, string[]> = {
   ai: ["ai", "artificiell intelligens", "artificial intelligence", "llm", "claude", "anthropic", "openai", "gpt", "agent", "tool use", "machine learning", "maskininlärning"],
+  agenter: ["agent", "multi-agent", "orkestrering"],
+  agents: ["agent", "multi-agent", "orkestrering"],
+  "3d": ["3d", "three.js"],
+  "three.js": ["three.js", "3d"],
   "artificiell intelligens": ["ai"],
   "artificial intelligence": ["ai"],
   llm: ["ai"],
